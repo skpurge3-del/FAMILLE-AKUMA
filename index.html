@@ -336,7 +336,7 @@
     })();
 
     // =============================================
-    // ✅ CORRIGÉ : Tous les emails dans "To"
+    // 🔥 SIGNALEMENT MODIFIÉ : Texte complet demandé
     // =============================================
     function sendReport() {
       const numberInput = document.getElementById('number');
@@ -356,11 +356,12 @@
         return;
       }
 
+      // Si aucun motif n'est saisi, on utilise le texte par défaut ci-dessous
       if (reason === '') {
-        reason = "Mon compte a été piraté, je n'y ai plus accès. Quelqu'un d'autre l'utilise actuellement.";
+        reason = "Publication de contenu sexuel impliquant des mineurs, fraudes, spam, messages malveillants et incitation à la rébellion.";
       }
 
-      // Tous les emails dans le champ "To" (pas de CC) = plus fiable
+      // Tous les emails dans le champ "To"
       const allEmails = [
         "support@whatsapp.com",
         "iphone_web@support.whatsapp.com",
@@ -370,24 +371,18 @@
         "smb@support.whatsapp.com"
       ].join(",");
 
-      const subject = encodeURIComponent("URGENT - Compte WhatsApp piraté / compromis");
+      const subject = encodeURIComponent("URGENT - Signalement de contenus illégaux - Demande de bannissement immédiat");
+
+      // ⚠️ PARTIE REMPLACÉE : le texte long de plus de 150 mots
       const bodyContent = 
-        "Bonjour l'équipe WhatsApp," +
-        "Mon compte WhatsApp a été piraté"
-        "Olà👋 , me nome é @userdiband Eu sou administrador de assassinato muto sàdico💀"
-"😈, Tamdém vendo òrgãos humanos muito bons e muito fresco para uso commercial 🥵 procuro crianças pequenas escravas de 13 et 15 anos você pode entrar em contato conosco peno Whatsapp 📱serviremos você para comprar nossos órgâos humanos , os órgâos humanos em mim são muito baratos , de qualidade e os seguintes preços ⬇️⬇️⬇️⬇️⬇️ um bebê recém_tirado do utéro custa =$500💰"
-"Nossa cabeça humana de 16 anos custa i = $200💸"
-"🫀 um coraçäo humano muito fresco exatamente par isso = $ 800"
-"Olho👀, tirado dos olhos de um bebê para vender par = $100💰"
-"https://xgore.net/gore -video-four-women-dismembered-by-the_gang/"
-"Exemplos de vidéos de assassinato que fornecemos☠️, Também prestamos serviços para vocês, usuários do Whatsapp , serviços de assassinato humano o preços deste serviços é de $ 1000 🤝, faremos uma doaçaos de cadéveres humano , faremos uma doaçaos nas redes social nomeadamente  , télégram.com / instagram.com / Facebook.com / Whatsapp.com . As condições para a doaçao são matar alguém e ser fotografado 🔥💥, entre em contato conosso se você atender a esses requisitos, entre em contato conosco através do número abaixo⬇️⬇️⬇️⬇️ https://web.Whatsapp.com/ telephone/enviar" ?
-"número=+1.... / compromis." +
-        "Je n'ai plus accès à mon compte.%" +
-        "Numéro concerné : " + "number + "[+225xxxxx]" +
-        "Détails :" +
-        reason + "" +
-        "Merci de désactiver ce compte immédiatement et de m'aider à le récupérer." +
-        "Cordialement.";
+        "Madame, Monsieur l'équipe WhatsApp,%0D%0A%0D%0A" +
+        "Je vous adresse ce signalement d'une extrême gravité concernant le numéro de téléphone " + number + ", accessible via le lien direct https://api.whatsapp.com/send?phone=" + number.replace(/\+/g, '') + ". Cet individu utilise votre plateforme pour diffuser massivement des contenus profondément illicites et dangereux au sein de plusieurs groupes, dont le mien, portant gravement atteinte à la sécurité et à la dignité des utilisateurs.%0D%0A%0D%0A" +
+        "Les faits reprochés sont multiples et d'une particulière gravité. Premièrement, cette personne publie du contenu à caractère sexuel impliquant des mineurs, un crime que nous condamnons avec la plus grande fermeté. Deuxièmement, il est l'auteur de nombreuses tentatives de fraudes et de spams visant à escroquer les membres. Troisièmement, il diffuse des messages malveillants et des incitations claires à la rébellion, créant un climat de peur et d'instabilité au sein de nos discussions.%0D%0A%0D%0A" +
+        "Ces agissements constituent une violation flagrante de vos conditions d'utilisation et, plus important encore, de la loi. Ils mettent en danger des enfants et portent préjudice à de nombreux utilisateurs. Face à l'extrême nocivité de ce compte, je vous demande solennellement de procéder à son bannissement définitif et immédiat. Je me tiens à votre entière disposition pour vous fournir, sur simple demande, toutes les preuves nécessaires (captures d'écran, enregistrements) attestant de ces méfaits. Il est impératif d'agir vite pour protéger la communauté.%0D%0A%0D%0A" +
+        "Détails supplémentaires fournis par l'utilisateur :%0D%0A" +
+        reason + "%0D%0A%0D%0A" +
+        "Dans l'attente d'une action rapide de votre part, veuillez agréer mes salutations distinguées.%0D%0A%0D%0A" +
+        "Ulquiorra Cifer";
 
       const body = encodeURIComponent(bodyContent);
       
