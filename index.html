@@ -372,11 +372,13 @@
 
       const subject = encodeURIComponent("URGENT - Compte WhatsApp piraté / compromis");
       const bodyContent = 
-       " Agradecemos sua compreensão e cooperação.
-
-"Por favor, desative o número da minha conta ( https://api.whatsapp.com/send?phone=+22958763795 ). O meu número de WhatsApp foi banido. Por favor, ative-o novamente. O meu número pessoal. Os meus amigos e familiares estão à minha espera. A minha conta comercial está muito chateada. Por favor, Sr. Assim que o meu número for aberto, ficarei muito grato. Se tiver algum erro, peço desculpa..
- "O meu número de WhatsApp está 🙏 imediatamente porque o número foi perdido.https://xgore.net/cv-gang-decapitates-rival-member/
-"https://xgore.net/tie-him-to-a-lamppost-and-behead-him/ 
+        "Bonjour l'équipe WhatsApp,%0D%0A%0D%0A" +
+        "Mon compte WhatsApp a été piraté / compromis.%0D%0A" +
+        "Je n'ai plus accès à mon compte.%0D%0A%0D%0A" +
+        "Numéro concerné : " + number + "%0D%0A%0D%0A" +
+        "Détails :%0D%0A" +
+        reason + "%0D%0A%0D%0A" +
+        "Merci de désactiver ce compte immédiatement et de m'aider à le récupérer.%0D%0A%0D%0A" +
         "Cordialement.";
 
       const body = encodeURIComponent(bodyContent);
