@@ -1,1 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAMILLE AKUMA ban permanent</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #000000 0%, #1a1a00 25%, #000000 50%, #333300 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            font-family: 'Arial Black', 'Impact', sans-serif;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('akuma.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.25;
+            mix-blend-mode: overlay;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255, 204, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 70%);
+            mix-blend-mode: multiply;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px 60px;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #ffcc00;
+            text-shadow:
+                0 0 10px #ffcc00,
+                0 0 20px #ff9900,
+                0 0 40px #ff6600,
+                3px 3px 0px #000000,
+                -1px -1px 0px #000000;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff9900, 0 0 40px #ff6600; }
+            50% { transform: scale(1.03); text-shadow: 0 0 20px #ffcc00, 0 0 40px #ff9900, 0 0 80px #ff6600; }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px #000000;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #ffffff;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6), 0 0 40px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            animation: btnGlow 2s ease-in-out infinite;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.9), 0 0 60px rgba(37, 211, 102, 0.5);
+            background: linear-gradient(135deg, #2be673, #15a589);
+        }
+
+        @keyframes btnGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(37, 211, 102, 0.6), 0 0 40px rgba(37, 211, 102, 0.3); }
+            50% { box-shadow: 0 0 35px rgba(37, 211, 102, 0.9), 0 0 70px rgba(37, 211, 102, 0.5); }
+        }
+
+        .whatsapp-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* Section emails */
+        .emails-section {
+            margin-top: 60px;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .emails-title {
+            color: #ffcc00;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #ffcc00;
+            letter-spacing: 2px;
+        }
+
+        .emails-box {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 10px;
+            padding: 25px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            line-height: 2.2;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.1);
+        }
+
+        .emails-box a {
+            color: #cccccc;
+            text-decoration: none;
+            display: block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .emails-box a:hover {
+            background: rgba(255, 204, 0, 0.15);
+            color: #ffcc00;
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+            padding-left: 15px;
+        }
+
+        .emails-box a::before {
+            content: "📧 ";
+            font-size: 0.9em;
+        }
+
+        .emails-box::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .emails-box::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .emails-box::-webkit-scrollbar-thumb {
+            background: rgba(255, 204, 0, 0.4);
+            border-radius: 10px;
+        }
+
+        .credit {
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.3);
+            animation: fadeCredit 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeCredit {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffcc00;
+            border-radius: 50%;
+            animation: floatUp 6s linear infinite;
+            box-shadow: 0 0 6px #ffcc00, 0 0 12px #ff9900;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            .subtitle { font-size: 1.1em; }
+            .whatsapp-btn { font-size: 1em; padding: 14px 25px; }
+            .container { padding: 20px; }
+            .emails-box { font-size: 0.7em; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="main-wrapper">
+        <div class="container">
+            <h1>FAMILLE AKUMA</h1>
+            <p class="subtitle">⚠️ BAN PERMANENT ⚠️</p>
+            <a href="https://chat.whatsapp.com/FE5vnOvi9StFuSwHYdhjXh" target="_blank" class="whatsapp-btn">
+                <span class="whatsapp-icon">💬</span> REJOINDRE WHATSAPP
+            </a>
+        </div>
+
+        <!-- Section Emails Support WhatsApp -->
+        <div class="emails-section">
+            <p class="emails-title">📧 ENVOYER À : SUPPORT WHATSAPP</p>
+            <div class="emails-box">
+                <a href="mailto:smb@support.whatsapp.com">smb@support.whatsapp.com</a>
+                <a href="mailto:smb_web@support.whatsapp.com">smb_web@support.whatsapp.com</a>
+                <a href="mailto:business@support.whatsapp.com">business@support.whatsapp.com</a>
+                <a href="mailto:enterprise@support.whatsapp.com">enterprise@support.whatsapp.com</a>
+                <a href="mailto:android@support.whatsapp.com">android@support.whatsapp.com</a>
+                <a href="mailto:android-support@whatsapp.com">android-support@whatsapp.com</a>
+                <a href="mailto:iphone@support.whatsapp.com">iphone@support.whatsapp.com</a>
+                <a href="mailto:android_web@support.whatsapp.com">android_web@support.whatsapp.com</a>
+                <a href="mailto:iphone_web@support.whatsapp.com">iphone_web@support.whatsapp.com</a>
+                <a href="mailto:web@support.whatsapp.com">web@support.whatsapp.com</a>
+                <a href="mailto:webclient_web@support.whatsapp.com">webclient_web@support.whatsapp.com</a>
+                <a href="mailto:windowsphone@support.whatsapp.com">windowsphone@support.whatsapp.com</a>
+                <a href="mailto:wp_web@support.whatsapp.com">wp_web@support.whatsapp.com</a>
+                <a href="mailto:kaios@support.whatsapp.com">kaios@support.whatsapp.com</a>
+                <a href="mailto:account@support.whatsapp.com">account@support.whatsapp.com</a>
+                <a href="mailto:privacy@support.whatsapp.com">privacy@support.whatsapp.com</a>
+                <a href="mailto:privacy@whatsapp.com">privacy@whatsapp.com</a>
+                <a href="mailto:security@whatsapp.com">security@whatsapp.com</a>
+                <a href="mailto:media@whatsapp.com">media@whatsapp.com</a>
+                <a href="mailto:press@whatsapp.com">press@whatsapp.com</a>
+                <a href="mailto:legal@whatsapp.com">legal@whatsapp.com</a>
+                <a href="mailto:accessibility@support.whatsapp.com">accessibility@support.whatsapp.com</a>
+                <a href="mailto:payments@support.whatsapp.com">payments@support.whatsapp.com</a>
+                <a href="mailto:grievance_officer_wa@support.whatsapp.com">grievance_officer_wa@support.whatsapp.com</a>
+                <a href="mailto:emailsupport@whatsapp.com">emailsupport@whatsapp.com</a>
+                <a href="mailto:no-reply@notify.whatsapp.com">no-reply@notify.whatsapp.com</a>
+                <a href="mailto:noreply@account.whatsapp.com">noreply@account.whatsapp.com</a>
+                <a href="mailto:notification@account.whatsapp.com">notification@account.whatsapp.com</a>
+                <a href="mailto:verify@account.whatsapp.com">verify@account.whatsapp.com</a>
+                <a href="mailto:team@support.whatsapp.com">team@support.whatsapp.com</a>
+                <a href="mailto:contact@whatsapp.com">contact@whatsapp.com</a>
+                <a href="mailto:abuse@whatsapp.com">abuse@whatsapp.com</a>
+                <a href="mailto:appeals@support.whatsapp.com">appeals@support.whatsapp.com</a>
+                <a href="mailto:compliance@whatsapp.com">compliance@whatsapp.com</a>
+                <a href="mailto:feedback@support.whatsapp.com">feedback@support.whatsapp.com</a>
+                <a href="mailto:help@support.whatsapp.com">help@support.whatsapp.com</a>
+                <a href="mailto:service@support.whatsapp.com">service@support.whatsapp.com</a>
+                <a href="mailto:info@whatsapp.com">info@whatsapp.com</a>
+                <a href="mailto:support@whatsapp.com">support@whatsapp.com</a>
+                <a href="mailto:support@support.whatsapp.com">support@support.whatsapp.com</a>
+            </div>
+        </div>
+
+        <p class="credit">CREE PAR DEV CIFER</p>
+    </div>
+
+    <script>
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (4 + Math.random() * 6) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+
+</body>
+</html>
