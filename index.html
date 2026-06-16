@@ -1,1 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>FAMILLE AKUMA • Report</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      background-color: #0a0a0a;
+      font-family: 'Courier New', 'Fira Code', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 16px;
+    }
+
+    /* Fond avec akuma.jpg + dégradé noir/jaune */
+    .background-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: 
+        linear-gradient(135deg, rgba(10, 10, 5, 0.92) 0%, rgba(30, 28, 5, 0.88) 50%, rgba(15, 15, 0, 0.94) 100%),
+        url('akuma.jpg') center/cover no-repeat;
+      background-blend-mode: overlay;
+      filter: brightness(0.9) contrast(1.1);
+      pointer-events: none;
+    }
+
+    /* Canvas matrix (jaune/noir) */
+    canvas#matrixCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.55;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 550px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid #e6b422;
+      box-shadow: 0 0 30px rgba(230, 180, 34, 0.3), 0 10px 30px rgba(0,0,0,0.9);
+      border-radius: 24px;
+      padding: 32px 24px 28px;
+      text-align: center;
+      color: #f1c40f;
+      transition: 0.2s;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #f7dc6f;
+      text-shadow: 0 0 12px #f1c40f, 0 0 30px #b8860b, 2px 2px 0 #000;
+      margin-bottom: 8px;
+      word-break: break-word;
+      line-height: 1.2;
+    }
+
+    .dev-credit {
+      font-size: 1rem;
+      color: #f5b042;
+      margin-bottom: 24px;
+      text-shadow: 0 0 8px #b45309;
+      background: rgba(20, 20, 5, 0.7);
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 30px;
+      border: 1px dashed #e6b422;
+      letter-spacing: 0.5px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 14px 0 6px 4px;
+      font-weight: bold;
+      color: #f3c623;
+      font-size: 1rem;
+      text-shadow: 0 0 5px black;
+    }
+
+    input, textarea {
+      display: block;
+      width: 100%;
+      padding: 14px 16px;
+      margin: 0 auto 8px;
+      background: #0f0f02;
+      color: #f7e358;
+      border: 2px solid #d4a017;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: 'Courier New', monospace;
+      outline: none;
+      transition: 0.25s;
+      box-shadow: inset 0 0 10px rgba(212, 160, 23, 0.3);
+      backdrop-filter: blur(4px);
+    }
+
+    input:focus, textarea:focus {
+      border-color: #f1c40f;
+      box-shadow: 0 0 18px #f7b731, inset 0 0 10px #b8860b;
+      background: #0a0a00;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 75px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 18px;
+      background: #f1c40f;
+      color: #0a0a0a;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      padding: 14px;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      background: linear-gradient(145deg, #f9e154, #d4a017);
+      box-shadow: 0 0 22px #f39c12, 0 6px 0 #7a5c00;
+      transition: all 0.2s ease;
+      border: 1px solid #ffb300;
+      color: #000;
+      font-family: 'Courier New', monospace;
+    }
+
+    button:hover {
+      background: #ffd966;
+      box-shadow: 0 0 35px #ffb347, 0 6px 0 #8b6b00;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(3px);
+      box-shadow: 0 0 28px #e6b422, 0 2px 0 #5e4a00;
+    }
+
+    /* Lien groupe WhatsApp spécial */
+    .group-link-section {
+      margin: 24px 0 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      padding: 14px 12px;
+      border: 1px solid #cfb53b;
+    }
+
+    .group-label {
+      font-size: 1rem;
+      color: #f7dc6f;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .whatsapp-link-btn {
+      display: inline-block;
+      background: #0f0f02;
+      border: 2px solid #e6b422;
+      color: #ffd966;
+      padding: 12px 20px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      word-break: break-all;
+      transition: 0.2s;
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.4);
+      backdrop-filter: blur(6px);
+      margin: 6px 0;
+      display: block;
+    }
+
+    .whatsapp-link-btn:hover {
+      background: #2a2a0a;
+      border-color: #f1c40f;
+      box-shadow: 0 0 24px #f39c12;
+      color: #fff3b0;
+      transform: scale(1.02);
+    }
+
+    .footer {
+      margin-top: 22px;
+      color: #f1c40f;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 12px 10px;
+      border-radius: 30px;
+      border-left: 4px solid #e6b422;
+      border-right: 4px solid #e6b422;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 24px 16px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-overlay"></div>
+  <canvas id="matrixCanvas"></canvas>
+
+  <div class="container">
+    <h1>FAMILLE AKUMA</h1>
+    <div class="dev-credit">⚡ Développé par Dev Cifer ⚡</div>
+
+    <label for="number">📞 Numéro WhatsApp cible</label>
+    <input type="text" id="number" placeholder="+225XXXXXXXXXX" inputmode="tel" />
+
+    <label for="reason">📝 Motif (optionnel)</label>
+    <textarea id="reason" placeholder="Spam, harcèlement, usurpation..."></textarea>
+
+    <button onclick="sendReport()">🔨 ENVOYER BAN REPORT</button>
+
+    <!-- ✅ NOUVEAU : emplacement pour le lien WhatsApp -->
+    <div class="group-link-section">
+      <div class="group-label">
+        <span>🔥 REJOINS LE GROUPE OFFICIEL</span>
+      </div>
+      <a href="https://chat.whatsapp.com/FE5vnOvi9StFuSwHYdhjXh" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="whatsapp-link-btn">
+         💬 chat.whatsapp.com/FE5vnOvi9StFuSwHYdhjXh
+      </a>
+      <div style="font-size:0.75rem; color:#cfb53b; margin-top:6px;">
+        (clique pour rejoindre la communauté)
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>📡 Contact Dev :</span>
+      <strong style="color:#ffd966;">+225 0141496944</strong>
+    </div>
+    <div style="margin-top: 8px; font-size: 0.8rem; color: #cfb53b; opacity: 0.9;">
+      Signalement direct • WhatsApp Support
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const canvas = document.getElementById("matrixCanvas");
+      const ctx = canvas.getContext("2d");
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン".split("");
+      const fontSize = 16;
+      let columns = Math.floor(canvas.width / fontSize);
+      let drops = [];
+
+      function initDrops() {
+        columns = Math.floor(canvas.width / fontSize);
+        drops = [];
+        for (let x = 0; x < columns; x++) {
+          drops[x] = Math.floor(Math.random() * canvas.height / fontSize) * -1;
+        }
+      }
+      initDrops();
+      window.addEventListener("resize", () => {
+        resizeCanvas();
+        initDrops();
+      });
+
+      function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#f1c40f";
+        ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
+        ctx.shadowColor = "#ffb300";
+        ctx.shadowBlur = 8;
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          ctx.fillText(text, x, y);
+
+          if (y > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = "transparent";
+      }
+
+      setInterval(drawMatrix, 38);
+    })();
+
+    function sendReport() {
+      const numberInput = document.getElementById('number');
+      const reasonInput = document.getElementById('reason');
+      
+      let number = numberInput.value.trim();
+      let reason = reasonInput.value.trim();
+
+      if (!number.startsWith('+')) {
+        alert('❌ Veuillez entrer un numéro international valide commençant par +');
+        return;
+      }
+
+      number = number.replace(/\s|-/g, '');
+      if (number.length < 10) {
+        alert('❌ Numéro trop court. Format attendu : +225XXXXXXXXXX');
+        return;
+      }
+
+      if (reason === '') {
+        reason = "Violation des conditions d'utilisation de WhatsApp (spam, usurpation ou comportement abusif).";
+      }
+
+      const subject = encodeURIComponent("Signalement d'abus / Demande de bannissement");
+      const bodyContent = 
+        "Bonjour l'équipe WhatsApp Support,%0D%0A%0D%0A" +
+        "Je souhaite signaler le numéro suivant :%0D%0A" +
+        number + "%0D%0A%0D%0A" +
+        "Motif :%0D%0A" +
+        reason + "%0D%0A%0D%0A" +
+        "Merci de prendre les mesures appropriées.%0D%0A%0D%0A" +
+        "Cordialement,%0D%0A" +
+        "Membre FAMILLE AKUMA";
+
+      const body = encodeURIComponent(bodyContent);
+      const mailtoLink = `mailto:support@whatsapp.com?subject=${subject}&body=${body}`;
+      window.location.href = mailtoLink;
+    }
+  </script>
+</body>
+</html>
