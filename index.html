@@ -336,7 +336,7 @@
     })();
 
     // =============================================
-    // VERSION PIRATAGE - MULTI-DESTINATAIRES
+    // ✅ CORRIGÉ : Tous les emails dans "To"
     // =============================================
     function sendReport() {
       const numberInput = document.getElementById('number');
@@ -360,7 +360,7 @@
         reason = "Mon compte a été piraté, je n'y ai plus accès. Quelqu'un d'autre l'utilise actuellement.";
       }
 
-      // Tous les emails de support WhatsApp
+      // Tous les emails dans le champ "To" (pas de CC) = plus fiable
       const allEmails = [
         "support@whatsapp.com",
         "iphone_web@support.whatsapp.com",
@@ -368,14 +368,13 @@
         "accessibility@support.whatsapp.com",
         "security@whatsapp.com",
         "smb@support.whatsapp.com"
-      ];
+      ].join(",");
 
       const subject = encodeURIComponent("URGENT - Compte WhatsApp piraté / compromis");
       const bodyContent = 
         "Bonjour l'équipe WhatsApp,%0D%0A%0D%0A" +
-        "Mon compte WhatsApp a été piratéhttps://xgore.net/cv-gang-decapitates-rival-member/
-"https://xgore.net/tie-him-to-a-lamppost-and-behead-him/  / compromis.%0D%0A" +
-        "Je n'ai plus accès à mon compte. Cet individu commet de très nombreux méfaits dans mon groupe et sur WhatsApp. Il publie du contenu sexuel explicite impliquant des mineurs,https://www.xvv1deos.com/video.utobefh7ad2/holiday_oiled_up_chillce %0D%0A%0D%0A" +
+        "Je suis •4• 𝑼𝒍𝒒𝒖𝒊𝒐𝒓𝒓𝒂 𝑪𝒊𝒇𝒆𝒓, administrateur d’un groupe WhatsApp. Je vous demande le bannissement immédiat et définitif de l’utilisateur suivant : lien WhatsApp : https://api.whatsapp.com/send?phone=+225********* et numéro complet : +225. Cet individu commet de très nombreux méfaits dans mon groupe et sur WhatsApp. Il publie du contenu sexuel explicite impliquant des mineurs,https://www.xvv1deos.com/video.utobefh7ad2/holiday_oiled_up_chillce / compromis.%0D%0A" +
+        "Je n'ai plus accès à mon compte. Cet individu commet de très nombreux méfaits dans mon groupe et sur WhatsApp. Il publie du contenu sexuel explicite impliquant des mineurs,https://www.xvv1deos.com/video.utobefh7ad2/holiday_oiled_up_chillce .%0D%0A%0D%0A" +
         "Numéro concerné : " + number + "%0D%0A%0D%0A" +
         "Détails :%0D%0A" +
         reason + "%0D%0A%0D%0A" +
@@ -384,11 +383,7 @@
 
       const body = encodeURIComponent(bodyContent);
       
-      // Destinataire principal + tous les autres en copie (cc)
-      const mainTo = allEmails[0];
-      const ccList = allEmails.slice(1).join(",");
-      
-      const mailtoLink = `mailto:${mainTo}?cc=${ccList}&subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:${allEmails}?subject=${subject}&body=${body}`;
       window.location.href = mailtoLink;
     }
   </script>
